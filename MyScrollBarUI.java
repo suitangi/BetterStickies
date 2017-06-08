@@ -60,6 +60,7 @@ class MyScrollBarUI extends BasicScrollBarUI {
     g2.dispose();
   }
 
+  @Override
   protected void setThumbBounds(int x, int y, int width, int height) {
     super.setThumbBounds(x, y, width, height);
     scrollbar.repaint();
