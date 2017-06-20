@@ -20,6 +20,8 @@ import javax.swing.border.BevelBorder;
 
 public class Settings extends JFrame implements ActionListener{
     
+	public static boolean infoState = false;
+	public static info infoFrame;
     private JButton exit;
     private Stickies sticky;
     private Color blue = new Color(166, 189, 234);
@@ -36,6 +38,7 @@ public class Settings extends JFrame implements ActionListener{
     private JButton redB;
     private JPanel colorMenu;
     private JPanel menu;
+    private JPanel menu2;
     private JPanel pane;
     private JPanel pane2;
     private JPanel styleMenu;
@@ -51,6 +54,7 @@ public class Settings extends JFrame implements ActionListener{
     private JButton narrow;
     private JButton serif;
     private JButton text;
+    private JButton info;
     private String font;
     private JScrollPane scrollPane;
     
@@ -91,6 +95,19 @@ public class Settings extends JFrame implements ActionListener{
         menu.add(new JLabel("  "));
         menu.setMaximumSize(new Dimension(999999999, 40));
         menu.setLayout(new BoxLayout(menu, BoxLayout.LINE_AXIS));
+       
+        info = new JButton("i");
+        info.setFont(new Font("Verdana", 0, 20));
+        info.setMaximumSize(new Dimension(40, 40));
+        info.setBorder(BorderFactory.createEmptyBorder());
+        info.addActionListener(this);
+        info.setFocusPainted(false);
+        
+        menu2 = new JPanel();
+        menu2.add(info);
+        menu2.add(new JLabel("  "));
+        menu2.setMaximumSize(new Dimension(999999999, 40));
+        menu2.setLayout(new BoxLayout(menu2, BoxLayout.LINE_AXIS));
         
         colorMenu = new JPanel();
         colorMenu.setLayout(new BoxLayout(colorMenu, BoxLayout.LINE_AXIS));
@@ -254,11 +271,13 @@ public class Settings extends JFrame implements ActionListener{
         pane2.add(styleMenu);
         pane2.add(fontSizeMenu);
         pane2.add(fontMenu);
+        pane.add(menu2);
         
         setColors();
         FrameDragListener frameDragListener = new FrameDragListener(this, menu);
         this.addMouseListener(frameDragListener);
         this.addMouseMotionListener(frameDragListener);
+        
         
     }
     public void setColors(){
@@ -267,7 +286,10 @@ public class Settings extends JFrame implements ActionListener{
         blueB.setBackground(sticky.getColor());
         exit.setBackground(sticky.getColor());
         exit.setForeground(sticky.getColor2());
+        info.setBackground(sticky.getColor());
+        info.setForeground(sticky.getColor2());
         menu.setBackground(sticky.getColor());
+        menu2.setBackground(sticky.getColor());
         styleMenu.setBackground(sticky.getColor());
         pane.setBackground(sticky.getColor());
         pane2.setBackground(sticky.getColor());
@@ -489,6 +511,13 @@ public class Settings extends JFrame implements ActionListener{
 			sticky.setFont(Stickies.FONT_SERIF);
 			font = Stickies.FONT_SERIF;
 			setColors();
+		}
+		if(e.getSource() == info){
+			if(!infoState)
+				infoFrame = new info();
+			else
+				infoFrame.requestFocus();
+			infoState = true;
 		}
 	}
 
